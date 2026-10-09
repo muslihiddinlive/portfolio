@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Muslihiddin — Telegram bot va AI dasturchi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F2F5F1;--ink:#16212B;--mute:#51606B;--line:#D3DBD4;--card:#FFFFFF;--acc:#0E7C66;--accink:#FFFFFF;--hi:#F2B84B;--bubbleme:#0E7C66;--bubblethem:#E3E9E4;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121A1F;--ink:#E8EEEA;--mute:#9AA8A2;--line:#2A363C;--card:#1A252B;--acc:#3FC0A2;--accink:#0B1512;--hi:#F2B84B;--bubbleme:#1F6F5D;--bubblethem:#26343A}}
+:root[data-theme="dark"]{--bg:#121A1F;--ink:#E8EEEA;--mute:#9AA8A2;--line:#2A363C;--card:#1A252B;--acc:#3FC0A2;--accink:#0B1512;--hi:#F2B84B;--bubbleme:#1F6F5D;--bubblethem:#26343A}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.6 "IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
+h1,h2,h3{font-family:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;line-height:1.1;margin:0}
+a{color:var(--acc)}
+a:focus-visible{outline:3px solid var(--hi);outline-offset:3px}
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;padding:64px 0 56px}
+.hero h1{font-size:clamp(2.2rem,5.5vw,3.8rem);font-weight:700;letter-spacing:-.02em}
+.hero p{max-width:34em;color:var(--mute);margin:20px 0 28px}
+.btns{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-block;padding:12px 20px;border-radius:10px;font-weight:500;text-decoration:none;border:2px solid var(--acc)}
+.btn.main{background:var(--acc);color:var(--accink)}
+.btn.alt{color:var(--ink);border-color:var(--line)}
+.chat{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:18px;display:flex;flex-direction:column;gap:10px}
+.chat .who{font-size:.8rem;color:var(--mute);margin:6px 0 0}
+.msg{max-width:88%;padding:10px 14px;border-radius:16px;font-size:.98rem;line-height:1.45}
+.them{background:var(--bubblethem);border-bottom-left-radius:4px}
+.me{background:var(--bubbleme);color:#fff;border-bottom-right-radius:4px;align-self:flex-end}
+.me.hl{box-shadow:0 0 0 3px var(--hi)}
+.facts{display:flex;flex-wrap:wrap;gap:12px 36px;padding:22px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-bottom:64px}
+.facts div{font-size:.95rem;color:var(--mute)}
+.facts b{display:block;font:700 1.5rem "Bricolage Grotesque",sans-serif;color:var(--ink)}
+section{margin-bottom:64px}
+h2{font-size:clamp(1.6rem,3.5vw,2.2rem);margin-bottom:24px;font-weight:700}
+.proj{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px}
+.card.wide{grid-column:1/-1;border-color:var(--acc);border-width:2px}
+.card h3{font-size:1.25rem;margin-bottom:8px}
+.card p{margin:0 0 12px;color:var(--mute);font-size:.98rem}
+.tag{display:inline-block;font-size:.8rem;padding:2px 10px;border-radius:99px;background:var(--bubblethem);color:var(--ink);margin:0 6px 6px 0}
+.skills{display:flex;flex-wrap:wrap;gap:10px}
+.skills span{border:1px solid var(--line);background:var(--card);border-radius:10px;padding:8px 14px}
+.work{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+footer{border-top:1px solid var(--line);padding:40px 0 56px}
+footer p{color:var(--mute);margin:8px 0 20px}
+.scroll{overflow-x:auto}
+@media (max-width:760px){.hero{grid-template-columns:1fr;padding-top:40px}.proj,.work{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:no-preference){.msg{animation:in .5s both}.msg:nth-of-type(2){animation-delay:.5s}.msg:nth-of-type(3){animation-delay:1s}@keyframes in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+<div>
+<h1>Telegram botlar, saytlar va AI yordamchilar yasayman</h1>
+<p>Men Muslihiddin, 2 yillik tajribali dasturchiman. Admin panel, to'lov va AI bilan ishlaydigan botlarni boshidan oxirigacha yetkazib beraman.</p>
+<div class="btns">
+<a class="btn main" href="https://t.me/ParadoksAiBot">Botimni sinab ko'ring</a>
+<a class="btn alt" href="https://t.me/ParadoksHub">@ParadoksHub kanalim</a>
+</div>
+</div>
+<div class="chat" aria-label="Misol suhbat">
+<p class="who" style="margin:0">Mijoz</p>
+<div class="msg them">Do'konim uchun bot kerak: buyurtma, to'lov va admin panel bilan.</div>
+<p class="who" style="align-self:flex-end;margin:0">Muslihiddin</p>
+<div class="msg me">Tushundim. Avval talablarni aniqlaymiz, keyin birinchi versiyani ko'rsataman.</div>
+<div class="msg me hl">Tayyor bo'lgach ham ishlashini kuzataman.</div>
+</div>
+</header>
+
+<div class="facts">
+<div><b>2 yil</b>IT tajribasi</div>
+<div><b>70+</b>AI botimdagi foydalanuvchilar</div>
+<div><b>120+</b>sticker/emoji shablonli botim</div>
+</div>
+
+<section>
+<h2>Loyihalarim</h2>
+<div class="proj">
+<article class="card wide">
+<h3>@ParadoksAiBot</h3>
+<p>Telegramdagi AI agent. Fayllar bilan ishlaydi, guruhda moderatsiya qiladi, admin va superadmin paneli bor, Telegramning yangi imkoniyatlaridan foydalanadi. Profilga ulansa, story'larni ham joylay oladi.</p>
+<span class="tag">Python</span><span class="tag">aiogram 3</span><span class="tag">AI agent</span><br>
+<a href="https://t.me/ParadoksAiBot">Botni ochish</a>
+</article>
+<article class="card">
+<h3>Sticker va emoji boti</h3>
+<p>120 dan ortiq shablon bilan sticker va emoji yasaydi. Rasmlardan PDF qiladi, QR yaratadi va o'qiydi. Ikkita Mini App bor: Music Vibe Lab va emoji shablonlarini oldindan ko'rish.</p>
+<span class="tag">Mini App</span><span class="tag">QR</span><span class="tag">PDF</span><br>
+<a href="https://t.me/LaborantRobot">@LaborantRobot</a> &nbsp; <a href="https://muslihiddinlive.github.io/music-vibe-lab/">Music Vibe Lab</a> &nbsp; <a href="https://muslihiddinlive.github.io/gnemoji-app/">Shablonlar ko'rinishi</a>
+</article>
+<article class="card">
+<h3>Fayl va repo boti</h3>
+<p>Emoji, sticker va GIF'larni zip qilib beradi, TGS kodini ochib ko'rsatadi, GitHub repolarni ma'lumotlari bilan yuklab beradi. Emoji va sticker ID'larini ham olib beradi.</p>
+<span class="tag">TGS</span><span class="tag">GitHub</span><span class="tag">Emoji ID</span><br>
+<a href="https://t.me/TheHackerRobot">@TheHackerRobot</a>
+</article>
+<article class="card" style="grid-column:1/-1">
+<h3>ParadoksGram</h3>
+<p>Ishlab chiqilmoqda: Telegram klienti. ID'larni bosib nusxalash, ovoz o'zgartirgich, o'chirilgan va tahrirlangan xabarlar tarixi.</p>
+<span class="tag">Jarayonda</span>
+</article>
+</div>
+</section>
+
+<section>
+<h2>Nimalar qila olaman</h2>
+<div class="work">
+<div class="card"><h3>Telegram botlar</h3><p>Buyurtma, to'lov, kanal va guruh boshqaruvi, admin panel, AI yordamchi.</p></div>
+<div class="card"><h3>Veb-saytlar</h3><p>Tool saytlar, o'yinlar va Telegram Mini App'lar.</p></div>
+<div class="card"><h3>Android ilovalar</h3><p>Telefondan boshqariladigan ilovalar, masalan VPS boshqaruv paneli.</p></div>
+</div>
+</section>
+
+<footer>
+<h2>Loyihangizni gaplashamiz</h2>
+<p>Qanday bot yoki sayt kerakligini yozing. Narx va muddatni birga kelishamiz. Menga yozish uchun kanalim yoki botlarimdagi "Adminga yozish" tugmasidan foydalaning.</p>
+<div class="btns">
+<a class="btn main" href="https://t.me/ParadoksHub">@ParadoksHub kanali</a>
+<a class="btn alt" href="https://t.me/ParadoksAiBot">@ParadoksAiBot</a>
+<a class="btn alt" href="https://t.me/LaborantRobot">@LaborantRobot</a>
+</div>
+</footer>
+</div>
+</body>
+</html>
