@@ -179,9 +179,9 @@
 
           <div class="field">
             <span class="lbl" id="svc-l">Qanday xizmat kerak? <i>ixtiyoriy</i></span>
-            <div class="chips" role="radiogroup" aria-labelledby="svc-l">
+            <div class="chips" role="group" aria-labelledby="svc-l">
               ${SERVICES.map(
-                (s) => `<label class="chip"><input type="radio" name="svc" value="${s}"><span>${s}</span></label>`
+                (s) => `<label class="chip"><input type="checkbox" name="svc" value="${s}"><span>${s}</span></label>`
               ).join("")}
             </div>
           </div>
@@ -368,7 +368,7 @@
         return;
       }
 
-      const svc = (form.querySelector('input[name="svc"]:checked') || {}).value;
+      const svc = Array.from(form.querySelectorAll('input[name="svc"]:checked')).map((i) => i.value).join(", ");
       const fd = new FormData();
       fd.append("website", form.elements.website.value);
       fd.append("name", form.elements.name.value.trim());
