@@ -149,6 +149,36 @@
     }
 
     if (fine && !reduce) {
+      // Silliq (lerp) harakat: qiymatlar nishonga sekin yetib boradi, shuning uchun
+      // karta va yorug'lik "sichqoncha izidan" emas, jonli suyuq harakatlanadi.
+      const cur = { x: 0, y: 0, a: 0 };
+      const tgt = { x: 0, y: 0, a: 0 };
+      let raf = 0;
+      const apply = () => {
+        if (!heroR) return;
+        heroR.style.setProperty("--tx", cur.x.toFixed(4));
+        heroR.style.setProperty("--ty", cur.y.toFixed(4));
+        heroR.style.setProperty("--ta", cur.a.toFixed(4));
+      };
+      const tick = () => {
+        const k = 0.11;
+        cur.x += (tgt.x - cur.x) * k;
+        cur.y += (tgt.y - cur.y) * k;
+        cur.a += (tgt.a - cur.a) * k;
+        if (Math.abs(tgt.x - cur.x) + Math.abs(tgt.y - cur.y) + Math.abs(tgt.a - cur.a) > 0.002) {
+          apply();
+          raf = requestAnimationFrame(tick);
+        } else {
+          cur.x = tgt.x;
+          cur.y = tgt.y;
+          cur.a = tgt.a;
+          apply();
+          raf = 0;
+        }
+      };
+      const kick = () => {
+        if (!raf) raf = requestAnimationFrame(tick);
+      };
       hero.addEventListener(
         "pointermove",
         (e) => {
@@ -156,14 +186,18 @@
           hero.style.setProperty("--hx", (((e.clientX - r.left) / r.width) * 2 - 1).toFixed(3));
           hero.style.setProperty("--hy", (((e.clientY - r.top) / r.height) * 2 - 1).toFixed(3));
           if (heroR) {
-            // Karta egilishi: kartaga yaqinlashganda kuchayadi, uzoqda tekis bo'ladi
-            const c = heroR.getBoundingClientRect();
+            // Karta joylashuvi egilmagan (layout) holatdan olinadi, shuning uchun qiymat "titramaydi"
+            const w = heroR.offsetWidth;
+            const h = heroR.offsetHeight;
+            const left = r.left + heroR.offsetLeft;
+            const topY = r.top + heroR.offsetTop;
             const pad = 90;
-            const near = e.clientX > c.left - pad && e.clientX < c.right + pad && e.clientY > c.top - pad && e.clientY < c.bottom + pad;
+            const near = e.clientX > left - pad && e.clientX < left + w + pad && e.clientY > topY - pad && e.clientY < topY + h + pad;
             const cl = (v) => Math.max(-1, Math.min(1, v));
-            heroR.style.setProperty("--tx", near ? cl((e.clientX - (c.left + c.width / 2)) / (c.width * 0.5)).toFixed(3) : "0");
-            heroR.style.setProperty("--ty", near ? cl((e.clientY - (c.top + c.height / 2)) / (c.height * 0.5)).toFixed(3) : "0");
-            heroR.style.setProperty("--ta", near ? "1" : "0");
+            tgt.x = near ? cl((e.clientX - (left + w / 2)) / (w * 0.5)) : 0;
+            tgt.y = near ? cl((e.clientY - (topY + h / 2)) / (h * 0.5)) : 0;
+            tgt.a = near ? 1 : 0;
+            kick();
           }
         },
         { passive: true }
@@ -171,11 +205,8 @@
       hero.addEventListener("pointerleave", () => {
         hero.style.setProperty("--hx", "0");
         hero.style.setProperty("--hy", "0");
-        if (heroR) {
-          heroR.style.setProperty("--tx", "0");
-          heroR.style.setProperty("--ty", "0");
-          heroR.style.setProperty("--ta", "0");
-        }
+        tgt.x = tgt.y = tgt.a = 0;
+        kick();
       });
     }
 

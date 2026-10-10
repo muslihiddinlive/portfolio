@@ -93,17 +93,30 @@ body, #top { overflow-x: clip; }
 .rv-scale.pchat {
   transform-style: preserve-3d;
   transform: perspective(900px) rotateY(calc(var(--tx, 0) * 10deg)) rotateX(calc(var(--ty, 0) * -10deg)) translateZ(calc(var(--ta, 0) * 26px));
-  transition: opacity 1s var(--e) var(--d, 0ms), translate 1s var(--e) var(--d, 0ms), scale 1s var(--e) var(--d, 0ms), transform .38s var(--e), box-shadow .45s var(--e);
+  /* tilt qiymatlari JS da silliqlanadi, shuning uchun transform/shadow uchun transition kerak emas */
+  transition: opacity 1s var(--e) var(--d, 0ms), translate 1s var(--e) var(--d, 0ms), scale 1s var(--e) var(--d, 0ms);
   box-shadow: calc(var(--tx, 0) * -26px) calc(40px + var(--ty, 0) * -22px) 90px -34px rgba(var(--acc-rgb), calc(.35 + var(--ta, 0) * .2));
 }
-/* Yaltiroq nur: kartada sichqoncha tomonga siljiydi */
+/* Yorug'lik: katta, yumshoq "shisha aksi" (nuqta emas). Egilish tomonga sekin siljiydi */
 .pchat::after {
   content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; z-index: 3;
-  background: radial-gradient(circle at calc(50% + var(--tx, 0) * 55%) calc(50% + var(--ty, 0) * 55%), rgba(255, 255, 255, .13), transparent 6.7%);
-  opacity: var(--ta, 0); transition: opacity .4s;
+  background:
+    radial-gradient(72% 72% at calc(50% + var(--tx, 0) * 34%) calc(50% + var(--ty, 0) * 34%), rgba(255, 255, 255, .085), rgba(255, 255, 255, .03) 48%, transparent 78%),
+    linear-gradient(112deg, transparent calc(38% + var(--tx, 0) * 24%), rgba(255, 255, 255, .045) calc(50% + var(--tx, 0) * 24%), transparent calc(62% + var(--tx, 0) * 24%));
+  opacity: var(--ta, 0);
+}
+/* Qirra nuri: sichqoncha tomonidagi chet brend rangida yonadi */
+.pchat::before {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1px; pointer-events: none; z-index: 3;
+  background: radial-gradient(62% 62% at calc(50% + var(--tx, 0) * 50%) calc(50% + var(--ty, 0) * 50%), rgba(var(--acc-rgb), .7), rgba(255, 255, 255, .14) 46%, transparent 78%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); mask-composite: exclude;
+  opacity: var(--ta, 0);
 }
 /* Chuqurlik: xabarlar kartadan oldinga chiqib turadi */
 .pchat .pbub { transform: translateZ(calc(var(--ta, 0) * 34px)); }
+.pchat .pbub { transition: opacity .6s var(--e), translate .6s var(--e), scale .6s var(--e); }
+.pbub { transform: translateZ(calc(var(--ta, 0) * 34px)); }
 .pchat .pbub { transition: opacity .6s var(--e), translate .6s var(--e), scale .6s var(--e), transform .38s var(--e); }
 .pbub { opacity: 0; translate: 0 16px; scale: .95; transition: opacity .6s var(--e), translate .6s var(--e), scale .6s var(--e); }
 .pbub:nth-child(2) { transform-origin: 0 100%; }
