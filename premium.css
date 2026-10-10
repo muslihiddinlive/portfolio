@@ -92,7 +92,7 @@ body, #top { overflow-x: clip; }
 .pchat { position: relative; }
 .rv-scale.pchat {
   transform-style: preserve-3d;
-  transform: perspective(900px) rotateY(calc(var(--tx, 0) * 14deg)) rotateX(calc(var(--ty, 0) * -14deg)) translateZ(calc(var(--ta, 0) * 26px));
+  transform: perspective(900px) rotateY(calc(var(--tx, 0) * 10deg)) rotateX(calc(var(--ty, 0) * -10deg)) translateZ(calc(var(--ta, 0) * 26px));
   transition: opacity 1s var(--e) var(--d, 0ms), translate 1s var(--e) var(--d, 0ms), scale 1s var(--e) var(--d, 0ms), transform .38s var(--e), box-shadow .45s var(--e);
   box-shadow: calc(var(--tx, 0) * -26px) calc(40px + var(--ty, 0) * -22px) 90px -34px rgba(var(--acc-rgb), calc(.35 + var(--ta, 0) * .2));
 }
