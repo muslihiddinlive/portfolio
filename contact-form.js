@@ -178,7 +178,7 @@
           <div class="hp" aria-hidden="true"><input type="text" name="website" tabindex="-1" autocomplete="off"></div>
 
           <div class="field">
-            <span class="lbl" id="svc-l">Nima kerak? <i>ixtiyoriy</i></span>
+            <span class="lbl" id="svc-l">Qanday xizmat kerak? <i>ixtiyoriy</i></span>
             <div class="chips" role="radiogroup" aria-labelledby="svc-l">
               ${SERVICES.map(
                 (s) => `<label class="chip"><input type="radio" name="svc" value="${s}"><span>${s}</span></label>`
