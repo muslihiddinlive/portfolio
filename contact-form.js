@@ -209,7 +209,7 @@
 
           <div class="submit">
             <button class="btn" type="submit"><span class="bar"></span><span class="spin"></span><span class="txt">Yuborish</span>${ICON_ARROW}</button>
-            <div class="note">Xabar to'g'ridan-to'g'ri Telegramimga boradi.</div>
+            <div class="note">Xabar to'g'ridan-to'g'ri Telegramimga boradi. Ctrl + Enter bilan ham yuborish mumkin.</div>
           </div>
         </form>
 
@@ -332,6 +332,15 @@
       msg.classList.remove("invalid");
     });
     contact.addEventListener("input", () => contact.classList.remove("invalid"));
+
+    // Ctrl/Cmd + Enter — yuborish. Enter va Shift + Enter — yangi qator.
+    msg.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" && (e.ctrlKey || e.metaKey) && !e.isComposing) {
+        e.preventDefault();
+        if (typeof form.requestSubmit === "function") form.requestSubmit();
+        else form.dispatchEvent(new Event("submit", { cancelable: true }));
+      }
+    });
 
     const setBusy = (on) => {
       sending = on;
