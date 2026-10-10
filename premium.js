@@ -394,6 +394,7 @@
       const y = window.scrollY || html.scrollTop;
       const max = html.scrollHeight - window.innerHeight;
       nav.classList.toggle("show", y > showAt());
+      { const sr = parts.services.getBoundingClientRect(); nav.classList.toggle("lt", sr.top < 70 && sr.bottom > 30); }
       parts.hero.style.setProperty("--py", String(Math.round(y)));
       let cur = null;
       sections.forEach(([id, el]) => {
