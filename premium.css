@@ -91,10 +91,20 @@ body, #top { overflow-x: clip; }
 }
 .pchat { position: relative; }
 .rv-scale.pchat {
-  transform: perspective(1000px) rotateY(calc(var(--hx, 0) * 5deg)) rotateX(calc(var(--hy, 0) * -5deg));
-  transition: opacity 1s var(--e) var(--d, 0ms), translate 1s var(--e) var(--d, 0ms), scale 1s var(--e) var(--d, 0ms), transform .6s var(--e);
-  box-shadow: 0 40px 90px -40px rgba(var(--acc-rgb), .35);
+  transform-style: preserve-3d;
+  transform: perspective(900px) rotateY(calc(var(--tx, 0) * 14deg)) rotateX(calc(var(--ty, 0) * -14deg)) translateZ(calc(var(--ta, 0) * 26px));
+  transition: opacity 1s var(--e) var(--d, 0ms), translate 1s var(--e) var(--d, 0ms), scale 1s var(--e) var(--d, 0ms), transform .38s var(--e), box-shadow .45s var(--e);
+  box-shadow: calc(var(--tx, 0) * -26px) calc(40px + var(--ty, 0) * -22px) 90px -34px rgba(var(--acc-rgb), calc(.35 + var(--ta, 0) * .2));
 }
+/* Yaltiroq nur: kartada sichqoncha tomonga siljiydi */
+.pchat::after {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; z-index: 3;
+  background: radial-gradient(circle at calc(50% + var(--tx, 0) * 55%) calc(50% + var(--ty, 0) * 55%), rgba(255, 255, 255, .13), transparent 58%);
+  opacity: var(--ta, 0); transition: opacity .4s;
+}
+/* Chuqurlik: xabarlar kartadan oldinga chiqib turadi */
+.pchat .pbub { transform: translateZ(calc(var(--ta, 0) * 34px)); }
+.pchat .pbub { transition: opacity .6s var(--e), translate .6s var(--e), scale .6s var(--e), transform .38s var(--e); }
 .pbub { opacity: 0; translate: 0 16px; scale: .95; transition: opacity .6s var(--e), translate .6s var(--e), scale .6s var(--e); }
 .pbub:nth-child(2) { transform-origin: 0 100%; }
 .pbub:nth-child(3) { transform-origin: 100% 100%; }

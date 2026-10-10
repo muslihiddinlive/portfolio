@@ -155,12 +155,27 @@
           const r = hero.getBoundingClientRect();
           hero.style.setProperty("--hx", (((e.clientX - r.left) / r.width) * 2 - 1).toFixed(3));
           hero.style.setProperty("--hy", (((e.clientY - r.top) / r.height) * 2 - 1).toFixed(3));
+          if (heroR) {
+            // Karta egilishi: kartaga yaqinlashganda kuchayadi, uzoqda tekis bo'ladi
+            const c = heroR.getBoundingClientRect();
+            const pad = 90;
+            const near = e.clientX > c.left - pad && e.clientX < c.right + pad && e.clientY > c.top - pad && e.clientY < c.bottom + pad;
+            const cl = (v) => Math.max(-1, Math.min(1, v));
+            heroR.style.setProperty("--tx", near ? cl((e.clientX - (c.left + c.width / 2)) / (c.width * 0.5)).toFixed(3) : "0");
+            heroR.style.setProperty("--ty", near ? cl((e.clientY - (c.top + c.height / 2)) / (c.height * 0.5)).toFixed(3) : "0");
+            heroR.style.setProperty("--ta", near ? "1" : "0");
+          }
         },
         { passive: true }
       );
       hero.addEventListener("pointerleave", () => {
         hero.style.setProperty("--hx", "0");
         hero.style.setProperty("--hy", "0");
+        if (heroR) {
+          heroR.style.setProperty("--tx", "0");
+          heroR.style.setProperty("--ty", "0");
+          heroR.style.setProperty("--ta", "0");
+        }
       });
     }
 
