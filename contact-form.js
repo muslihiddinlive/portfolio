@@ -335,7 +335,7 @@
 
     // Ctrl/Cmd + Enter — yuborish. Enter va Shift + Enter — yangi qator.
     msg.addEventListener("keydown", (e) => {
-      if (e.key === "Enter" && (e.ctrlKey || e.metaKey) && !e.isComposing) {
+      if ((e.key === "Enter" || e.code === "Enter" || e.code === "NumpadEnter" || e.keyCode === 13) && (e.ctrlKey || e.metaKey) && !e.isComposing) {
         e.preventDefault();
         if (typeof form.requestSubmit === "function") form.requestSubmit();
         else form.dispatchEvent(new Event("submit", { cancelable: true }));
