@@ -336,7 +336,7 @@
     nav.setAttribute("aria-label", "Tezkor menyu");
     nav.innerHTML =
       '<a class="pn-logo" href="#top"><i></i>Paradoks</a>' +
-      '<div class="pn-links"><span class="pn-ind" aria-hidden="true"></span><a href="#projects">Loyihalar</a><a href="#services">Xizmatlar</a><a href="#contact" class="pn-cta mag">Bog\'lanish</a></div>';
+      '<div class="pn-links"><span class="pn-ind" aria-hidden="true"></span><a href="#projects">Loyihalar</a><a href="#services">Xizmatlar</a><a href="#pricing">Narxlar</a><a href="#contact" class="pn-cta mag">Bog\'lanish</a></div>';
     doc.body.appendChild(nav);
 
     const links = Array.from(nav.querySelectorAll(".pn-links a:not(.pn-cta)"));
@@ -384,6 +384,7 @@
     const sections = [
       ["#projects", parts.projects],
       ["#services", parts.services],
+      ["#pricing", parts.contact.parentElement.querySelector("#pricing") || parts.contact],
       ["#contact", parts.contact],
     ];
     const showAt = () => Math.max(320, parts.header.offsetHeight + 200);
