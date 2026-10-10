@@ -99,7 +99,7 @@ body, #top { overflow-x: clip; }
 /* Yaltiroq nur: kartada sichqoncha tomonga siljiydi */
 .pchat::after {
   content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; z-index: 3;
-  background: radial-gradient(circle at calc(50% + var(--tx, 0) * 55%) calc(50% + var(--ty, 0) * 55%), rgba(255, 255, 255, .13), transparent 20%);
+  background: radial-gradient(circle at calc(50% + var(--tx, 0) * 55%) calc(50% + var(--ty, 0) * 55%), rgba(255, 255, 255, .13), transparent 6.7%);
   opacity: var(--ta, 0); transition: opacity .4s;
 }
 /* Chuqurlik: xabarlar kartadan oldinga chiqib turadi */
