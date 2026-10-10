@@ -324,12 +324,6 @@
   }
 
   function chrome(parts) {
-    // Progress chizig'i
-    const prog = doc.createElement("div");
-    prog.className = "pprog";
-    prog.setAttribute("aria-hidden", "true");
-    doc.body.appendChild(prog);
-
     // Grain
     const grain = doc.createElement("div");
     grain.className = "pgrain";
@@ -399,7 +393,6 @@
       ticking = false;
       const y = window.scrollY || html.scrollTop;
       const max = html.scrollHeight - window.innerHeight;
-      prog.style.transform = "scaleX(" + (max > 0 ? Math.min(1, y / max) : 0).toFixed(4) + ")";
       nav.classList.toggle("show", y > showAt());
       parts.hero.style.setProperty("--py", String(Math.round(y)));
       let cur = null;
