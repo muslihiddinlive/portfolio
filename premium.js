@@ -296,10 +296,51 @@
     nav.setAttribute("aria-label", "Tezkor menyu");
     nav.innerHTML =
       '<a class="pn-logo" href="#top"><i></i>Paradoks</a>' +
-      '<div class="pn-links"><a href="#projects">Loyihalar</a><a href="#services">Xizmatlar</a><a href="#contact" class="pn-cta mag">Bog\'lanish</a></div>';
+      '<div class="pn-links"><span class="pn-ind" aria-hidden="true"></span><a href="#projects">Loyihalar</a><a href="#services">Xizmatlar</a><a href="#contact" class="pn-cta mag">Bog\'lanish</a></div>';
     doc.body.appendChild(nav);
 
     const links = Array.from(nav.querySelectorAll(".pn-links a:not(.pn-cta)"));
+    const linksWrap = nav.querySelector(".pn-links");
+    const ind = nav.querySelector(".pn-ind");
+    let activeEl = null;
+    let hoverEl = null;
+    const place = (el) => {
+      if (!el) {
+        ind.style.opacity = "0";
+        return;
+      }
+      const hidden = ind.style.opacity !== "1";
+      if (hidden) ind.style.transition = "none"; // birinchi marta "sirpanib" kelmasin
+      ind.style.width = el.offsetWidth + "px";
+      ind.style.transform = "translateX(" + el.offsetLeft + "px)";
+      ind.style.opacity = "1";
+      if (hidden) {
+        void ind.offsetWidth;
+        ind.style.transition = "";
+      }
+    };
+    links.forEach((a) =>
+      a.addEventListener("pointerenter", () => {
+        hoverEl = a;
+        place(a);
+      })
+    );
+    linksWrap.addEventListener("pointerleave", () => {
+      hoverEl = null;
+      place(activeEl);
+    });
+    nav.addEventListener("pointerdown", () => nav.classList.add("press"));
+    ["pointerup", "pointerleave", "pointercancel"].forEach((ev) => nav.addEventListener(ev, () => nav.classList.remove("press")));
+    if (fine) {
+      nav.addEventListener(
+        "pointermove",
+        (e) => {
+          const r = nav.getBoundingClientRect();
+          nav.style.setProperty("--lx", (((e.clientX - r.left) / r.width) * 100).toFixed(1) + "%");
+        },
+        { passive: true }
+      );
+    }
     const sections = [
       ["#projects", parts.projects],
       ["#services", parts.services],
@@ -320,6 +361,11 @@
         if (el.getBoundingClientRect().top < window.innerHeight * 0.4) cur = id;
       });
       links.forEach((a) => a.classList.toggle("on", a.getAttribute("href") === cur));
+      const next = links.find((a) => a.getAttribute("href") === cur) || null;
+      if (next !== activeEl) {
+        activeEl = next;
+        if (!hoverEl) place(activeEl);
+      }
     };
     const onScroll = () => {
       if (!ticking) {
@@ -328,7 +374,10 @@
       }
     };
     window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll, { passive: true });
+    window.addEventListener("resize", () => {
+      onScroll();
+      place(hoverEl || activeEl);
+    }, { passive: true });
     update();
 
     // Magnit (nav tugmasi)
